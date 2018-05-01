@@ -15,33 +15,35 @@ class Database {
     }
 
     migrate() {
-        this.knex.schema.createTable('users', function (table) {
-            table.increments()
-            table.string('login', 100).unique()
-            table.string('password', 100)
-            table.timestamps()
+
+        var self = this
+
+        this.knex.schema.hasTable('users').then(function (exists) {
+            if (!exists) {
+                return self.knex.schema.createTable('users', function (table) {
+                    table.increments()
+                    table.string('login', 100).unique().notNullable()
+                    table.string('password', 100).notNullable()
+                    table.timestamps()
+                })
+            }
         })
 
-        this.knex.schema.createTable('tasks', function (table) {
-            table.increments()
-            table.integer('parent_id')
-            table.string('name', 100).unique()
-            table.text('description')
-            table.date('deadline')
-            table.boolean('finished')
-            table.timestamps()
+        this.knex.schema.hasTable('tasks').then(function (exists) {
+            if (!exists) {
+                return self.knex.schema.createTable('tasks', function (table) {
+                    table.increments()
+                    table.integer('parent_id').nullable()
+                    table.integer('owner_id').notNullable()
+                    table.string('name', 100).unique().notNullable()
+                    table.text('description').nullable()
+                    table.date('deadline').nullable()
+                    table.boolean('finished').notNullable()
+                    table.timestamps()
+                })
+            }
         })
 
-        // this.knex.schema.createTableIfNotExists('users', function (table) {
-        //     table.increments()
-        //     table.string('name', 100)
-        //     table.string('last_name', 100)
-        //     table.string('email', 120).unique()
-        //     table.string('phone', 100)
-        //     table.string('password', 150)
-        //     table.string('secretKey', 100)
-        //     table.timestamps()
-        // })
     }
 
 }
