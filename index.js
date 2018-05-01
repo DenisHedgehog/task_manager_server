@@ -19,7 +19,7 @@ app.post('/tasks', function (req, res) {
         deadline: req.body.deadline,
         finished: req.body.finished
     }).then(result => {
-        if (result != null) {
+        if (result.length > 0) {
             res.json({ success: true, message: result })
         } else {
             res.json({ success: false, message: 'task didnt created' })
@@ -31,7 +31,7 @@ app.post('/tasks', function (req, res) {
 
 app.get('/tasks/:user_id', function (req, res) {
     db.knex('tasks').where({ owner_id: req.params.user_id }).select().then(result => {
-        if (result != null) {
+        if (result.length > 0) {
             res.json({ success: true, message: result })
         } else {
             res.json({ success: false, message: 'cant get task' })
@@ -48,7 +48,7 @@ app.put('/tasks/:task_id', function (req, res) {
         deadline: req.body.deadline,
         finished: req.body.finished
     }).then(result => {
-        if (result != null) {
+        if (result.length > 0) {
             res.json({ success: true, message: result })
         } else {
             res.json({ success: false, message: 'task didnt updated' })
@@ -60,7 +60,7 @@ app.put('/tasks/:task_id', function (req, res) {
 
 app.delete('/tasks/:task_id', function (req, res) {
     db.knex('tasks').where({ id: req.params.task_id }).delete().then(result => {
-        if (result != null) {
+        if (result.length > 0) {
             res.json({ success: true, message: result })
         } else {
             res.json({ success: false, message: 'task didnt deleted' })
@@ -75,7 +75,7 @@ app.post('/users', function (req, res) {
         login: req.body.login,
         password: req.body.password
     }).then(result => {
-        if (result != null) {
+        if (result.length > 0) {
             res.json({ success: true, message: result })
         } else {
             res.json({ success: false, message: 'account didnt created' })
@@ -89,7 +89,7 @@ app.get('/auth', function (req, res) {
     var auth = req.body
     var user
     db.knex('users').where('login', auth.login).select().then(result => {
-        if (result != null) {
+        if (result.length > 0) {
             user = result
         } else {
             res.send({ stasus: false, message: 'incorrect login' })
@@ -106,7 +106,7 @@ app.put('/users/:user_id', function (req, res) {
     db.knex('users').where({ id: req.params.user_id }).update({
         password: req.body.password
     }).then(result => {
-        if (result != null) {
+        if (result.length > 0) {
             res.json({ success: true, message: result })
         } else {
             res.json({ success: false, message: 'password didnt changed' })
