@@ -85,17 +85,16 @@ app.post('/users', function (req, res) {
     })
 })
 
-app.get('/auth', function (req, res) {
+app.get('/auth/:login/:password', function (req, res) {
     var auth = req.body
     var user
-    db.knex('users').where('login', auth.login).select().then(result => {
+    db.knex('users').where('login', login).select().then(result => {
         if (result.length > 0) {
-            user = result
         } else {
             res.send({ stasus: false, message: 'incorrect login' })
         }
     })
-    if (user.password === auth.password) {
+    if (user.password === password) {
         res.send({ stasus: true, message: 'successful' })
     } else {
         res.send({ stasus: false, message: e })
