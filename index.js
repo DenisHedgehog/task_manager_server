@@ -93,12 +93,13 @@ app.post('/auth', function (req, res) {
         } else {
             res.json({ stasus: false, message: 'incorrect login' })
         }
+    }).catch(e => {
+        if (userPassword === req.body.password) {
+            res.json({ stasus: true, message: 'successful' })
+        } else {
+            res.json({ stasus: false, message: e })
+        }
     })
-    if (userPassword === req.body.password) {
-        res.json({ stasus: true, message: 'successful' })
-    } else {
-        res.json({ stasus: false, message: e })
-    }
 })
 
 app.put('/users/:user_id', function (req, res) {
