@@ -91,7 +91,7 @@ app.post('/auth', function (req, res) {
             console.log(result)
             console.log("RESULT PASSWORD" + result[0].password)
             console.log("USER PASSWORD" + req.body.password)
-            console.log(result.password + " === " + req.body.password + " IS " + result.password === req.body.password)
+            console.log(result.password == req.body.password)
             if (result.password === req.body.password) {
                 res.json({ stasus: true, message: 'successful' })
             } else {
