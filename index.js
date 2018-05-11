@@ -86,8 +86,9 @@ app.post('/users', function (req, res) {
 })
 
 app.post('/auth', function (req, res) {
-    var user
+    var user 
     db.knex('users').where('login', req.body.login).select().then(result => {
+        user = result
         if (result.length > 0) {
         } else {
             res.json({ stasus: false, message: 'incorrect login' })
