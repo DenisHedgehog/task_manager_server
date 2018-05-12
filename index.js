@@ -89,6 +89,7 @@ app.post('/auth', function (req, res) {
     db.knex('users').where('login', req.body.login).select().then(result => {
         if (result.length > 0) {
             if (result[0].password === req.body.password) {
+                console.log(result[0].id)
                 res.json({ success: true, message: result[0].id })
             } else {
                 res.json({ success: false, message: 'incorrect password' })
