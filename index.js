@@ -89,15 +89,15 @@ app.post('/auth', function (req, res) {
     db.knex('users').where('login', req.body.login).select().then(result => {
         if (result.length > 0) {
             if (result[0].password === req.body.password) {
-                res.json({ stasus: true, message: result[0].id })
+                res.json({ success: true, message: result[0].id })
             } else {
-                res.json({ stasus: false, message: 'incorrect password' })
+                res.json({ success: false, message: 'incorrect password' })
             }
         } else {
-            res.json({ stasus: false, message: 'incorrect login' })
+            res.json({ success: false, message: 'incorrect login' })
         }
     }).catch(e => {
-            res.json({ stasus: false, message: e })
+            res.json({ success: false, message: e })
     })
 })
 
