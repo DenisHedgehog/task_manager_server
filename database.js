@@ -38,7 +38,7 @@ class Database {
                     table.string('name', 100).unique().notNullable()
                     table.text('description').nullable()
                     table.integer('duration').nullable()
-                    table.date('deadline').nullable()
+                    table.string('deadline').nullable()
                     table.boolean('finished').notNullable()
                     table.timestamps()
                 })
