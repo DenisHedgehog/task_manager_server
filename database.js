@@ -37,6 +37,7 @@ class Database {
                     table.integer('owner_id').notNullable()
                     table.string('name', 100).unique().notNullable()
                     table.text('description').nullable()
+                    table.integer('duration').nullable()
                     table.date('deadline').nullable()
                     table.boolean('finished').notNullable()
                     table.timestamps()
