@@ -20,7 +20,7 @@ app.post('/tasks', function (req, res) {
         finished: req.body.finished
     }).then(result => {
         if (result.length > 0) {
-            res.json({ success: true, message: result[0].id })
+            res.json({ success: true, message: result[0] })
         } else {
             res.json({ success: false, message: 'task didnt created' })
         }
