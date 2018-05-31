@@ -32,6 +32,7 @@ app.post('/tasks', function (req, res) {
 app.get('/tasks/:user_id', function (req, res) {
     db.knex('tasks').where({ owner_id: req.params.user_id }).select().then(result => {
         if (result.length > 0) {
+            console.log(result)
             res.json({ success: true, message: result })
         } else {
             res.json({ success: false, message: 'cant get task' })
