@@ -59,7 +59,7 @@ app.put('/tasks/:task_id', function (req, res) {
 })
 
 app.delete('/tasks/:task_id', function (req, res) {
-    db.knex('tasks').where({ id: req.params.task_id }).select().then(result => {
+    db.knex('tasks').where({ id: req.params.task_id }).delete().then(result => {
         if (result.length > 0) {
             res.json({ success: true, message: result })
         } else {
